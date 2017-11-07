@@ -36,7 +36,7 @@ ur.df <- function (y, type = c("none", "drift", "trend"), lags = 1, selectlags =
             result <- lm(z.diff ~ z.lag.1 + 1 + tt + z.diff.lag)
 	  critRes[i]<-AIC(result, k = switch(selectlags, "AIC" = 2, "BIC" = log(length(z.diff))))
 	}
-	lags<-which.min(critRes)
+  lags <- optimaxlags <- which.min(critRes)
     }
         z.diff.lag = x[, 2:lags]
         if (type == "none") {
@@ -168,5 +168,6 @@ ur.df <- function (y, type = c("none", "drift", "trend"), lags = 1, selectlags =
     colnames(cvals) <- c("1pct", "5pct", "10pct")
     rownames(cvals) <- testnames
 
-    new("ur.df", y = y, model = type, cval=cvals, lags=lag, teststat = teststat, testreg=testreg, res=res, test.name="Augmented Dickey-Fuller Test")
+    new("ur.df", y = y, model = type, cval=cvals, lags=lag, optilags = optimaxlags,
+        teststat = teststat, testreg=testreg, res=res, test.name="Augmented Dickey-Fuller Test")
 }

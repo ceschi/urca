@@ -95,6 +95,7 @@ setClass("ur.pp", representation(y="vector",
 setClass("ur.df", representation(y="vector",
                                  model="character",
                                  lags="integer",
+                                 optilags='integer'
                                  cval="matrix",
                                  res="vector",
                                  teststat="matrix",
